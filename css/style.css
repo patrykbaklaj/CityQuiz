@@ -1,0 +1,235 @@
+body {
+  transition-duration: 0.4s;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; }
+
+#app {
+  background-image: url("/home/patryk/Pulpit/Projekt/images/Warsaw-at-night-free-license-CC0.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh; }
+
+.login_container {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/home/patryk/Pulpit/Projekt/images/Warsaw-at-night-free-license-CC0.jpg");
+  background-size: cover;
+  background-position: center; }
+
+@keyframes fadein {
+  0% {
+    opacity: 0; }
+  66% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    opacity: 0.8; } }
+
+@-webkit-keyframes fadein {
+  0% {
+    opacity: 0; }
+  66% {
+    opacity: 0; }
+  75% {
+    opacity: 1; }
+  100% {
+    opacity: 0.85; } }
+
+.login_header {
+  opacity: 0.8;
+  align-self: center;
+  min-width: 20%;
+  background: #1F2341; }
+  .login_header h1 {
+    padding: 0.8em;
+    margin: 1em;
+    font-size: 2em;
+    opacity: 1; }
+
+div.login_pane {
+  opacity: 0.8;
+  align-self: center;
+  min-width: 20%;
+  height: 40%;
+  background: #1F2341;
+  text-shadow: 0 0 1px white;
+  color: white;
+  position: relative; }
+  div.login_pane h3 {
+    padding: 1em;
+    margin: 1em;
+    font-size: 2em;
+    opacity: 1; }
+  div.login_pane input {
+    margin: 0 auto;
+    display: block; }
+  div.login_pane input {
+    min-width: 20%;
+    height: 2em;
+    background: #A9B4C4;
+    border: 1px solid #A9B4C4;
+    border-radius: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #181D27;
+    font-style: italic; }
+    div.login_pane input:hover {
+      transform: scale(1.2); }
+  div.login_pane button.login_next_button {
+    min-width: 20%;
+    line-height: 2em;
+    margin-top: 1em;
+    display: block;
+    margin: 1em auto;
+    background: #92B6B1;
+    border-style: none;
+    border-radius: 5px; }
+    div.login_pane button.login_next_button:hover {
+      transform: scale(1.2); }
+  div.login_pane button.login_skip_button {
+    position: absolute;
+    font-size: 1em;
+    bottom: 5%;
+    right: 5%;
+    color: #D7D8DF;
+    background: none;
+    border: none; }
+    div.login_pane button.login_skip_button:hover {
+      transform: scale(1.2); }
+
+.map_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #181D27;
+  opacity: 0.95;
+  width: 90%;
+  height: 90%;
+  overflow: hidden; }
+  .map_container div.info_table {
+    width: 39%;
+    color: white;
+    margin: 0.7em; }
+  .map_container div.main_map {
+    width: 50%;
+    position: relative; }
+    .map_container div.main_map img {
+      width: 100%;
+      border-radius: 10px; }
+
+.time {
+  width: 100%;
+  background: green; }
+
+.time0 {
+  width: 0%;
+  background: green; }
+
+.time1 {
+  width: 6.66%;
+  background: green; }
+
+.time2 {
+  width: 13.32%;
+  background: green; }
+
+.time3 {
+  width: 19.98%;
+  background: green; }
+
+.time4 {
+  width: 26.64%;
+  background: green; }
+
+.time5 {
+  width: 33.3%;
+  background: green; }
+
+.time6 {
+  width: 39.96%;
+  background: green; }
+
+.time7 {
+  width: 46.62%;
+  background: green; }
+
+.time8 {
+  width: 53.28%;
+  background: green; }
+
+.time9 {
+  width: 59.94%;
+  background: green; }
+
+.time10 {
+  width: 66.6%;
+  background: green; }
+
+.time11 {
+  width: 73.26%;
+  background: green; }
+
+.time12 {
+  width: 79.92%;
+  background: green; }
+
+.time13 {
+  width: 86.58%;
+  background: green; }
+
+.time14 {
+  width: 93.24%;
+  background: green; }
+
+.time15 {
+  width: 99.9%;
+  background: green; }
+
+.point {
+  display: none;
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%; }
+
+.pointCity {
+  display: none;
+  width: 10px;
+  height: 10px;
+  background: green;
+  border-radius: 50%; }
+
+.result_tab {
+  display: block;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  background: white;
+  opacity: 0.7; }
+  .result_tab h1, .result_tab h3 {
+    color: grey;
+    font-size: 1em; }
+
+.score_table {
+  width: 30%;
+  display: flex;
+  align-self: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  opacity: 0.7; }
+  .score_table h1, .score_table h3 {
+    color: grey;
+    font-size: 1em; }

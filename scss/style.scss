@@ -1,0 +1,214 @@
+body  {
+  transition-duration: 0.4s;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#app {
+  background-image: url("/home/patryk/Pulpit/Projekt/images/Warsaw-at-night-free-license-CC0.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.login_container {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/home/patryk/Pulpit/Projekt/images/Warsaw-at-night-free-license-CC0.jpg");
+  background-size: cover;
+  background-position: center;
+
+}
+
+@keyframes fadein{
+  0% { opacity:0; }
+  66% { opacity:0; }
+  75% { opacity:1; }
+  100% { opacity:0.8; }
+}
+
+@-webkit-keyframes fadein{
+  0% { opacity:0; }
+  66% { opacity:0; }
+  75% { opacity:1; }
+  100% { opacity:0.85; }
+}
+
+
+.login_header {
+  // -webkit-animation: 2s ease 0s normal both 1 fadein;
+  // animation: 2s ease 0s normal both 1 fadein;
+  opacity: 0.8;
+  align-self: center;
+  min-width: 20%;
+  // line-height: 2em;
+  background: #1F2341;
+  h1 {
+    padding: 0.8em;
+    margin: 1em;
+    font-size: 2em;
+    opacity: 1;
+  }
+}
+
+div.login_pane {
+  // -webkit-animation: 2s ease 0.5s normal both 1 fadein;
+  // animation: 2s ease 0.5s normal both 1 fadein;
+  opacity: 0.8;
+  align-self: center;
+  min-width: 20%;
+  height: 40%;
+  background: #1F2341;
+  text-shadow: 0 0 1px white;
+  color: white;
+  position: relative;
+  h3 {
+    padding: 1em;
+    margin: 1em;
+    font-size: 2em;
+    opacity: 1;
+  }
+  input {
+    margin: 0 auto;
+    display: block;
+  }
+  input {
+    min-width: 20%;
+    height: 2em;
+    background: #A9B4C4;
+    border: 1px solid #A9B4C4;
+    border-radius: 5px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #181D27;
+    font-style: italic;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  button.login_next_button {
+    min-width: 20%;
+    line-height: 2em;
+    margin-top: 1em;
+    display: block;
+    margin: 1em auto;
+    background: #92B6B1;
+    border-style: none;
+    border-radius: 5px;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  button.login_skip_button {
+    position: absolute;
+    font-size: 1em;
+    bottom: 5%;
+    right: 5%;
+    color: #D7D8DF;
+    background: none;
+    border: none;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+
+.map_container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #181D27;
+  opacity: 0.95;
+  // display: inline-block;
+  width: 90%;
+  height: 90%;
+  overflow: hidden;
+  div.info_table {
+    // display: inline-block;
+    width: 39%;
+    color: white;
+    margin: 0.7em;
+  }
+
+  div.main_map {
+    width: 50%;
+    position: relative;
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
+}
+
+.time {
+  width: 100%;
+  background: green;
+}
+
+@for $i from 0 through 15 {
+  .time#{$i} {
+    width:  6.66% * $i;
+    background: green;
+  }
+}
+
+.point {
+  display: none;
+  // position: absolute;
+  // top: -1%;
+  // left: -1%;
+  width: 10px;
+  height: 10px;
+  background: red;
+  border-radius: 50%;
+}
+.pointCity {
+  display: none;
+  // position: absolute;
+  // top: -1%;
+  // left: -1%;
+  width: 10px;
+  height: 10px;
+  background: green;
+  border-radius: 50%;
+}
+
+.result_tab {
+  display: block;
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+  background: white;
+  opacity: 0.7;
+  h1, h3 {
+    color: grey;
+    font-size: 1em;
+  }
+}
+.score_table {
+  width: 30%;
+  display: flex;
+  align-self: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  opacity: 0.7;
+  h1, h3 {
+    color: grey;
+    font-size: 1em;
+  }
+}
