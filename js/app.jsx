@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 const map_Url = "images/Poland_map.svg";
-const helloText = "Twoje zadanie polega na zaznaczaniu na mapie wyświetlanych miast. Im bliżej będziesz, tym więcej punktów dostaniesz. Pamiętej, że na zaznaczenie każdego miasta masz tylko 15 sekund.... Zaczynamy?";
+const helloText = "Twoje zadanie polega na zaznaczaniu na mapie wyświetlanych miast. Im bliżej będziesz, tym więcej punktów dostaniesz. Pamiętej, że na zaznaczenie każdego miasta masz tylko 10 sekund.... Zaczynamy?";
 let userName = "";
 let userTotalScore = 0;
 const citiesArray = [{id: 1, city: "Bielsko-Biała", cityN: 49.819, cityE: 19.049},
@@ -69,22 +69,26 @@ class InfoTable extends React.Component {
     super(props);
     this.state = {
       start: false,
+      end: false,
       next: 0,
       city: this.props.cityRandom
     }
   }
 
   startGame() {
+    console.log("start game - Info");
     this.setState({
       start: true
     });
   }
 
   loadMap(e){
+    console.log("load map - Info");
     this.props.loadMap(e);
   }
 
   nextCity(e){
+    console.log("Next City - Info");
     this.props.hideMap();
     this.setState({
       next: this.state.next + 1
@@ -92,6 +96,7 @@ class InfoTable extends React.Component {
   }
 
   reloadCity(e) {
+    console.log("reloadCity - Info");
     e.preventDefault();
     this.props.showMap();
     this.setState({
@@ -100,13 +105,30 @@ class InfoTable extends React.Component {
     })
   }
 
+  endGame(){
+    this.setState({
+      end: true
+    })
+  }
+
   render(){
-    console.log("InfoTable " + this.props.cityRandom.city);
+
+    if(this.state.end) {
+      console.log("game over");
+      return <div className="game_over">
+        <h2>{userName},</h2>
+        <h1>gra zakończona</h1>
+        <h3>Twój wynik to: {userTotalScore} punktów!</h3>
+      </div>
+
+    }
+
     if(this.state.next > 0) {
       return <div className="info_table">
         <div className="city_display">
           <h1>Następne miasto?</h1>
           <button onClick = { (e) => this.reloadCity(e)}>Next!</button>
+          <button onClick = { (e) => this.endGame(e)}>Zakończ!</button>
         </div>
       </div>
     }
@@ -137,8 +159,6 @@ class ScoreSummary extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      score: 0,
-      scoreSum: 0,
       seconds: 10,
       className: "time",
       clicked: false
@@ -155,7 +175,6 @@ class ScoreSummary extends React.Component {
         this.setState({
           seconds: 0
         })
-        console.log(this.state.seconds);
         this.props.countingEnd();
         clearInterval(intervalId);
       }
@@ -163,6 +182,7 @@ class ScoreSummary extends React.Component {
   }
 
   render () {
+    console.log("render ScoreSummary");
     return <div className="score_summary">
       <div className={this.state.className}>{this.state.seconds}</div>
     </div>
@@ -181,44 +201,10 @@ class Buttons extends React.Component {
   }
 
   render() {
+    console.log("render z buttons");
     return   <div className="buttons_container">
       <button className="button start_button" onClick = {(e) => this.onClick(e)}>Start</button>
 
-    </div>
-  }
-}
-// wynik łaczny
-class ScoreTable extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      totalScore: this.props.total
-    }
-  }
-
-
-  render(){
-    console.log(this.props.total);
-    return <div className="score_table">
-      <h1>{userName}, Twój łączny wynik to: {this.state.totalScore}</h1>
-    </div>
-  }
-}
-
-class ResultTab extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      kilometers: this.props.kilometers,
-      score: Math.round(10000 / this.props.kilometers)
-    }
-  }
-
-  render(){
-    this.props.showScore(this.state);
-    return <div className="result_tab">
-      <h1>Odległość: {this.state.kilometers} km</h1>
-      <h3>Twoje punkty: {this.state.score} pkt</h3>
     </div>
   }
 }
@@ -234,21 +220,17 @@ class MapContainer extends React.Component {
   }
 
   randomCity() {
-    let item = citiesArray[Math.floor(Math.random()*citiesArray.length)];
-    console.log(item);
+    let index = Math.floor( Math.random() * citiesArray.length );
+    let item = citiesArray[index];
+    citiesArray.splice(index, 1);
+    console.log(citiesArray);
+
     return item;
-    // {
-    //   id: 3,
-    //   city: "Gdańsk",
-    //   cityN: 54.360,
-    //   cityE: 18.639
-    // };
   }
 
   loadMap(e){
     this.setState({
       start: true
-
     })
   }
 
@@ -258,39 +240,46 @@ class MapContainer extends React.Component {
     })
   }
 
-
-
-  onCountingEnd(e) {
-    console.log("koniec odliczania z map_container");
-  }
-
   onHideMap(){
     this.setState({
       start: false,
     });
     this.newCity();
-  }
-
-  setScore(e){
-    console.log(e);
-
-  }
+  };
 
   render() {
     if(this.state.start){
       return <div className="map_container">
-        <ScoreTable totalScore={this.state.totalScore} countingEnd={ (e) => this.onCountingEnd(e) } total="12"/>
         <InfoTable loadMap={(e) => this.loadMap(e)} hideMap={ (e) => this.onHideMap(e) } cityRandom={this.state.randomCity} />
-        <Map cityRandom={this.state.randomCity} showScore={(e) => this.setScore(e)}/>
+        <Map cityRandom={this.state.randomCity} />
       </div>
-    } else {
+    }
+    else {
       return <div className="map_container">
-        <ScoreTable totalScore={this.state.totalScore} countingEnd={ (e) => this.onCountingEnd(e) }  total="12" />
         <InfoTable loadMap={(e) => this.loadMap(e)}  showMap={ (e) => this.loadMap(e)} cityRandom={this.state.randomCity} />
       </div>
     }
   }
 }
+
+class ResultTab extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      kilometers: this.props.kilometers,
+      score: this.props.score
+    }
+    userTotalScore = userTotalScore + this.state.score;
+  }
+
+  render(){
+    return <div className="result_tab">
+      <h1>Odległość: {this.state.kilometers} km</h1>
+      <h3>Punkty: {this.state.score}</h3>
+    </div>
+  }
+}
+
 
 class Map extends React.Component {
   constructor(props){
@@ -303,31 +292,35 @@ class Map extends React.Component {
       cityY: Math.abs(this.props.cityRandom.cityN - 55.191) * 14.83,
       display: "none",
       click: false,
-    }
+      score: ""
+    };
   }
 
   calculateKm() {
+    console.log("calculateKm");
     return Math.round(Math.sqrt(Math.pow(Math.abs(this.state.cityX - this.state.coordX)*8, 2) + Math.pow(Math.abs(this.state.cityY - this.state.coordY)*8 ,2)));
   }
 
+  calculateScore() {
+    console.log("calculateScore");
+    return Math.round(10000 / this.calculateKm());
+  }
 
   onClickMap(event) {
+    console.log("onClickMap");
     this.setState({
       coordX: (100 * (Math.abs(event.nativeEvent.offsetX/event.nativeEvent.target.clientWidth)) - 1.3),
       coordY: (100 * (Math.abs(event.nativeEvent.offsetY/event.nativeEvent.target.clientHeight)) - 1.3),
       display: "block",
-      click: true,
+      click: true
     });
   }
 
-  showScore(e){
-    this.props.showScore(e);
-  }
-
   render(){
+    console.log(userTotalScore)
     if(this.state.click) {
       return <div className="main_map">
-        <img src={map_Url} onClick={(e) => this.onClickMap(e)}></img>
+        <img src={map_Url}></img>
         <div className="point" style={{
             position: "absolute",
             display: this.state.display,
@@ -342,7 +335,7 @@ class Map extends React.Component {
             left: this.state.cityX + "%"
           }}>
         </div>
-        <ResultTab kilometers={this.calculateKm()} showScore={(e) => this.showScore(e)}/>
+        <ResultTab kilometers={this.calculateKm()} score={this.calculateScore()}/>
       </div>
     } else {
       return <div className="main_map">

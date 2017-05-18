@@ -9529,7 +9529,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var map_Url = "images/Poland_map.svg";
-var helloText = "Twoje zadanie polega na zaznaczaniu na mapie wyświetlanych miast. Im bliżej będziesz, tym więcej punktów dostaniesz. Pamiętej, że na zaznaczenie każdego miasta masz tylko 15 sekund.... Zaczynamy?";
+var helloText = "Twoje zadanie polega na zaznaczaniu na mapie wyświetlanych miast. Im bliżej będziesz, tym więcej punktów dostaniesz. Pamiętej, że na zaznaczenie każdego miasta masz tylko 10 sekund.... Zaczynamy?";
 var userName = "";
 var userTotalScore = 0;
 var citiesArray = [{ id: 1, city: "Bielsko-Biała", cityN: 49.819, cityE: 19.049 }, { id: 2, city: "Bydgoszcz", cityN: 53.120, cityE: 18.010 }, { id: 3, city: "Gdańsk", cityN: 54.360, cityE: 18.639 }, { id: 4, city: "Gorzów Wielkopolski", cityN: 52.740, cityE: 15.230 }, { id: 5, city: "Warszawa", cityN: 52.259, cityE: 21.020 }, { id: 6, city: "Łódź", cityN: 51.770, cityE: 19.459 }, { id: 7, city: "Wrocław", cityN: 51.110, cityE: 17.030 }, { id: 8, city: "Poznań", cityN: 52.399, cityE: 16.900 }, { id: 9, city: "Szczecin", cityN: 53.430, cityE: 14.529 }, { id: 10, city: "Lublin", cityN: 51.240, cityE: 22.570 }, { id: 11, city: "Katowice", cityN: 50.259, cityE: 19.020 }, { id: 12, city: "Białystok", cityN: 53.139, cityE: 23.159 }, { id: 13, city: "Gdynia", cityN: 54.520, cityE: 18.530 }, { id: 15, city: "Częstochowa", cityN: 50.810, cityE: 19.129 }, { id: 16, city: "Radom", cityN: 51.339, cityE: 21.159 }, { id: 17, city: "Sosnowiec", cityN: 50.279, cityE: 19.120 }, { id: 18, city: "Toruń", cityN: 53.020, cityE: 18.609 }, { id: 19, city: "Kielce", cityN: 50.889, cityE: 20.649 }, { id: 20, city: "Olsztyn", cityN: 53.779, cityE: 20.489 }];
@@ -9625,6 +9625,7 @@ var InfoTable = function (_React$Component2) {
 
     _this3.state = {
       start: false,
+      end: false,
       next: 0,
       city: _this3.props.cityRandom
     };
@@ -9634,6 +9635,7 @@ var InfoTable = function (_React$Component2) {
   _createClass(InfoTable, [{
     key: 'startGame',
     value: function startGame() {
+      console.log("start game - Info");
       this.setState({
         start: true
       });
@@ -9641,11 +9643,13 @@ var InfoTable = function (_React$Component2) {
   }, {
     key: 'loadMap',
     value: function loadMap(e) {
+      console.log("load map - Info");
       this.props.loadMap(e);
     }
   }, {
     key: 'nextCity',
     value: function nextCity(e) {
+      console.log("Next City - Info");
       this.props.hideMap();
       this.setState({
         next: this.state.next + 1
@@ -9654,6 +9658,7 @@ var InfoTable = function (_React$Component2) {
   }, {
     key: 'reloadCity',
     value: function reloadCity(e) {
+      console.log("reloadCity - Info");
       e.preventDefault();
       this.props.showMap();
       this.setState({
@@ -9662,11 +9667,43 @@ var InfoTable = function (_React$Component2) {
       });
     }
   }, {
+    key: 'endGame',
+    value: function endGame() {
+      this.setState({
+        end: true
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _this4 = this;
 
-      console.log("InfoTable " + this.props.cityRandom.city);
+      if (this.state.end) {
+        console.log("game over");
+        return _react2.default.createElement(
+          'div',
+          { className: 'game_over' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            userName,
+            ','
+          ),
+          _react2.default.createElement(
+            'h1',
+            null,
+            'gra zako\u0144czona'
+          ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            'Tw\xF3j wynik to: ',
+            userTotalScore,
+            ' punkt\xF3w!'
+          )
+        );
+      }
+
       if (this.state.next > 0) {
         return _react2.default.createElement(
           'div',
@@ -9685,6 +9722,13 @@ var InfoTable = function (_React$Component2) {
                   return _this4.reloadCity(e);
                 } },
               'Next!'
+            ),
+            _react2.default.createElement(
+              'button',
+              { onClick: function onClick(e) {
+                  return _this4.endGame(e);
+                } },
+              'Zako\u0144cz!'
             )
           )
         );
@@ -9750,8 +9794,6 @@ var ScoreSummary = function (_React$Component3) {
     var _this5 = _possibleConstructorReturn(this, (ScoreSummary.__proto__ || Object.getPrototypeOf(ScoreSummary)).call(this, props));
 
     _this5.state = {
-      score: 0,
-      scoreSum: 0,
       seconds: 10,
       className: "time",
       clicked: false
@@ -9774,7 +9816,6 @@ var ScoreSummary = function (_React$Component3) {
           _this6.setState({
             seconds: 0
           });
-          console.log(_this6.state.seconds);
           _this6.props.countingEnd();
           clearInterval(intervalId);
         }
@@ -9783,6 +9824,7 @@ var ScoreSummary = function (_React$Component3) {
   }, {
     key: 'render',
     value: function render() {
+      console.log("render ScoreSummary");
       return _react2.default.createElement(
         'div',
         { className: 'score_summary' },
@@ -9819,6 +9861,7 @@ var Buttons = function (_React$Component4) {
     value: function render() {
       var _this8 = this;
 
+      console.log("render z buttons");
       return _react2.default.createElement(
         'div',
         { className: 'buttons_container' },
@@ -9835,42 +9878,86 @@ var Buttons = function (_React$Component4) {
 
   return Buttons;
 }(_react2.default.Component);
-// wynik łaczny
 
+var MapContainer = function (_React$Component5) {
+  _inherits(MapContainer, _React$Component5);
 
-var ScoreTable = function (_React$Component5) {
-  _inherits(ScoreTable, _React$Component5);
+  function MapContainer(props) {
+    _classCallCheck(this, MapContainer);
 
-  function ScoreTable(props) {
-    _classCallCheck(this, ScoreTable);
-
-    var _this9 = _possibleConstructorReturn(this, (ScoreTable.__proto__ || Object.getPrototypeOf(ScoreTable)).call(this, props));
+    var _this9 = _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
 
     _this9.state = {
-      totalScore: _this9.props.total
+      totalScore: 0,
+      start: false,
+      randomCity: _this9.randomCity()
     };
     return _this9;
   }
 
-  _createClass(ScoreTable, [{
+  _createClass(MapContainer, [{
+    key: 'randomCity',
+    value: function randomCity() {
+      var index = Math.floor(Math.random() * citiesArray.length);
+      var item = citiesArray[index];
+      citiesArray.splice(index, 1);
+      console.log(citiesArray);
+
+      return item;
+    }
+  }, {
+    key: 'loadMap',
+    value: function loadMap(e) {
+      this.setState({
+        start: true
+      });
+    }
+  }, {
+    key: 'newCity',
+    value: function newCity(e) {
+      this.setState({
+        randomCity: this.randomCity()
+      });
+    }
+  }, {
+    key: 'onHideMap',
+    value: function onHideMap() {
+      this.setState({
+        start: false
+      });
+      this.newCity();
+    }
+  }, {
     key: 'render',
     value: function render() {
-      console.log(this.props.total);
-      return _react2.default.createElement(
-        'div',
-        { className: 'score_table' },
-        _react2.default.createElement(
-          'h1',
-          null,
-          userName,
-          ', Tw\xF3j \u0142\u0105czny wynik to: ',
-          this.state.totalScore
-        )
-      );
+      var _this10 = this;
+
+      if (this.state.start) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'map_container' },
+          _react2.default.createElement(InfoTable, { loadMap: function loadMap(e) {
+              return _this10.loadMap(e);
+            }, hideMap: function hideMap(e) {
+              return _this10.onHideMap(e);
+            }, cityRandom: this.state.randomCity }),
+          _react2.default.createElement(Map, { cityRandom: this.state.randomCity })
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          { className: 'map_container' },
+          _react2.default.createElement(InfoTable, { loadMap: function loadMap(e) {
+              return _this10.loadMap(e);
+            }, showMap: function showMap(e) {
+              return _this10.loadMap(e);
+            }, cityRandom: this.state.randomCity })
+        );
+      }
     }
   }]);
 
-  return ScoreTable;
+  return MapContainer;
 }(_react2.default.Component);
 
 var ResultTab = function (_React$Component6) {
@@ -9879,19 +9966,19 @@ var ResultTab = function (_React$Component6) {
   function ResultTab(props) {
     _classCallCheck(this, ResultTab);
 
-    var _this10 = _possibleConstructorReturn(this, (ResultTab.__proto__ || Object.getPrototypeOf(ResultTab)).call(this, props));
+    var _this11 = _possibleConstructorReturn(this, (ResultTab.__proto__ || Object.getPrototypeOf(ResultTab)).call(this, props));
 
-    _this10.state = {
-      kilometers: _this10.props.kilometers,
-      score: Math.round(10000 / _this10.props.kilometers)
+    _this11.state = {
+      kilometers: _this11.props.kilometers,
+      score: _this11.props.score
     };
-    return _this10;
+    userTotalScore = userTotalScore + _this11.state.score;
+    return _this11;
   }
 
   _createClass(ResultTab, [{
     key: 'render',
     value: function render() {
-      this.props.showScore(this.state);
       return _react2.default.createElement(
         'div',
         { className: 'result_tab' },
@@ -9905,9 +9992,8 @@ var ResultTab = function (_React$Component6) {
         _react2.default.createElement(
           'h3',
           null,
-          'Twoje punkty: ',
-          this.state.score,
-          ' pkt'
+          'Punkty: ',
+          this.state.score
         )
       );
     }
@@ -9916,137 +10002,43 @@ var ResultTab = function (_React$Component6) {
   return ResultTab;
 }(_react2.default.Component);
 
-var MapContainer = function (_React$Component7) {
-  _inherits(MapContainer, _React$Component7);
-
-  function MapContainer(props) {
-    _classCallCheck(this, MapContainer);
-
-    var _this11 = _possibleConstructorReturn(this, (MapContainer.__proto__ || Object.getPrototypeOf(MapContainer)).call(this, props));
-
-    _this11.state = {
-      totalScore: 0,
-      start: false,
-      randomCity: _this11.randomCity()
-    };
-    return _this11;
-  }
-
-  _createClass(MapContainer, [{
-    key: 'randomCity',
-    value: function randomCity() {
-      var item = citiesArray[Math.floor(Math.random() * citiesArray.length)];
-      console.log(item);
-      return item;
-      // {
-      //   id: 3,
-      //   city: "Gdańsk",
-      //   cityN: 54.360,
-      //   cityE: 18.639
-      // };
-    }
-  }, {
-    key: 'loadMap',
-    value: function loadMap(e) {
-      this.setState({
-        start: true
-
-      });
-    }
-  }, {
-    key: 'newCity',
-    value: function newCity(e) {
-      this.setState({
-        randomCity: this.randomCity()
-      });
-    }
-  }, {
-    key: 'onCountingEnd',
-    value: function onCountingEnd(e) {
-      console.log("koniec odliczania z map_container");
-    }
-  }, {
-    key: 'onHideMap',
-    value: function onHideMap() {
-      this.setState({
-        start: false
-      });
-      this.newCity();
-    }
-  }, {
-    key: 'setScore',
-    value: function setScore(e) {
-      console.log(e);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _this12 = this;
-
-      if (this.state.start) {
-        return _react2.default.createElement(
-          'div',
-          { className: 'map_container' },
-          _react2.default.createElement(ScoreTable, { totalScore: this.state.totalScore, countingEnd: function countingEnd(e) {
-              return _this12.onCountingEnd(e);
-            }, total: '12' }),
-          _react2.default.createElement(InfoTable, { loadMap: function loadMap(e) {
-              return _this12.loadMap(e);
-            }, hideMap: function hideMap(e) {
-              return _this12.onHideMap(e);
-            }, cityRandom: this.state.randomCity }),
-          _react2.default.createElement(Map, { cityRandom: this.state.randomCity, showScore: function showScore(e) {
-              return _this12.setScore(e);
-            } })
-        );
-      } else {
-        return _react2.default.createElement(
-          'div',
-          { className: 'map_container' },
-          _react2.default.createElement(ScoreTable, { totalScore: this.state.totalScore, countingEnd: function countingEnd(e) {
-              return _this12.onCountingEnd(e);
-            }, total: '12' }),
-          _react2.default.createElement(InfoTable, { loadMap: function loadMap(e) {
-              return _this12.loadMap(e);
-            }, showMap: function showMap(e) {
-              return _this12.loadMap(e);
-            }, cityRandom: this.state.randomCity })
-        );
-      }
-    }
-  }]);
-
-  return MapContainer;
-}(_react2.default.Component);
-
-var Map = function (_React$Component8) {
-  _inherits(Map, _React$Component8);
+var Map = function (_React$Component7) {
+  _inherits(Map, _React$Component7);
 
   function Map(props) {
     _classCallCheck(this, Map);
 
-    var _this13 = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
+    var _this12 = _possibleConstructorReturn(this, (Map.__proto__ || Object.getPrototypeOf(Map)).call(this, props));
 
-    _this13.state = {
-      city: _this13.props.cityRandom.city,
+    _this12.state = {
+      city: _this12.props.cityRandom.city,
       coordX: "",
       coordY: "",
-      cityX: Math.abs(_this13.props.cityRandom.cityE - 13.787) * 9.16,
-      cityY: Math.abs(_this13.props.cityRandom.cityN - 55.191) * 14.83,
+      cityX: Math.abs(_this12.props.cityRandom.cityE - 13.787) * 9.16,
+      cityY: Math.abs(_this12.props.cityRandom.cityN - 55.191) * 14.83,
       display: "none",
-      click: false
+      click: false,
+      score: ""
     };
-    return _this13;
+    return _this12;
   }
 
   _createClass(Map, [{
     key: 'calculateKm',
     value: function calculateKm() {
+      console.log("calculateKm");
       return Math.round(Math.sqrt(Math.pow(Math.abs(this.state.cityX - this.state.coordX) * 8, 2) + Math.pow(Math.abs(this.state.cityY - this.state.coordY) * 8, 2)));
+    }
+  }, {
+    key: 'calculateScore',
+    value: function calculateScore() {
+      console.log("calculateScore");
+      return Math.round(10000 / this.calculateKm());
     }
   }, {
     key: 'onClickMap',
     value: function onClickMap(event) {
+      console.log("onClickMap");
       this.setState({
         coordX: 100 * Math.abs(event.nativeEvent.offsetX / event.nativeEvent.target.clientWidth) - 1.3,
         coordY: 100 * Math.abs(event.nativeEvent.offsetY / event.nativeEvent.target.clientHeight) - 1.3,
@@ -10055,22 +10047,16 @@ var Map = function (_React$Component8) {
       });
     }
   }, {
-    key: 'showScore',
-    value: function showScore(e) {
-      this.props.showScore(e);
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this14 = this;
+      var _this13 = this;
 
+      console.log(userTotalScore);
       if (this.state.click) {
         return _react2.default.createElement(
           'div',
           { className: 'main_map' },
-          _react2.default.createElement('img', { src: map_Url, onClick: function onClick(e) {
-              return _this14.onClickMap(e);
-            } }),
+          _react2.default.createElement('img', { src: map_Url }),
           _react2.default.createElement('div', { className: 'point', style: {
               position: "absolute",
               display: this.state.display,
@@ -10083,16 +10069,14 @@ var Map = function (_React$Component8) {
               top: this.state.cityY + "%",
               left: this.state.cityX + "%"
             } }),
-          _react2.default.createElement(ResultTab, { kilometers: this.calculateKm(), showScore: function showScore(e) {
-              return _this14.showScore(e);
-            } })
+          _react2.default.createElement(ResultTab, { kilometers: this.calculateKm(), score: this.calculateScore() })
         );
       } else {
         return _react2.default.createElement(
           'div',
           { className: 'main_map' },
           _react2.default.createElement('img', { src: map_Url, onClick: function onClick(e) {
-              return _this14.onClickMap(e);
+              return _this13.onClickMap(e);
             } }),
           _react2.default.createElement('div', { className: 'point', style: {
               position: "absolute",
@@ -10108,18 +10092,18 @@ var Map = function (_React$Component8) {
   return Map;
 }(_react2.default.Component);
 
-var MainView = function (_React$Component9) {
-  _inherits(MainView, _React$Component9);
+var MainView = function (_React$Component8) {
+  _inherits(MainView, _React$Component8);
 
   function MainView(props) {
     _classCallCheck(this, MainView);
 
-    var _this15 = _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).call(this, props));
+    var _this14 = _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).call(this, props));
 
-    _this15.state = {
+    _this14.state = {
       logged: false
     };
-    return _this15;
+    return _this14;
   }
 
   _createClass(MainView, [{
@@ -10132,7 +10116,7 @@ var MainView = function (_React$Component9) {
   }, {
     key: 'render',
     value: function render() {
-      var _this16 = this;
+      var _this15 = this;
 
       if (this.state.logged) {
         return _react2.default.createElement(MapContainer, null);
@@ -10141,7 +10125,7 @@ var MainView = function (_React$Component9) {
           'div',
           { className: 'login_container' },
           _react2.default.createElement(Login, { onLogin: function onLogin() {
-              return _this16.onLogin();
+              return _this15.onLogin();
             } })
         );
       }
@@ -10151,8 +10135,8 @@ var MainView = function (_React$Component9) {
   return MainView;
 }(_react2.default.Component);
 
-var App = function (_React$Component10) {
-  _inherits(App, _React$Component10);
+var App = function (_React$Component9) {
+  _inherits(App, _React$Component9);
 
   function App() {
     _classCallCheck(this, App);
