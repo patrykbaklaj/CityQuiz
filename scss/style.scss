@@ -1,9 +1,12 @@
 body  {
-  transition-duration: 0.4s;
+  transition-duration: 0.5s;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Averia Serif Libre', cursive;
+  font-size: 1.4vmax;
 }
+
 #app {
   background-image: url("/home/patryk/Pulpit/Projekt/images/Warsaw-at-night-free-license-CC0.jpg");
   background-size: cover;
@@ -44,13 +47,15 @@ body  {
 
 
 .login_header {
-  // -webkit-animation: 2s ease 0s normal both 1 fadein;
-  // animation: 2s ease 0s normal both 1 fadein;
+  -webkit-animation: 2s ease 0s normal both 1 fadein;
+  animation: 2s ease 0s normal both 1 fadein;
   opacity: 0.8;
   align-self: center;
   min-width: 20%;
   // line-height: 2em;
   background: #1F2341;
+  text-align: center;
+  font-size: 1.2em;
   h1 {
     padding: 0.8em;
     margin: 1em;
@@ -60,90 +65,157 @@ body  {
 }
 
 div.login_pane {
-  // -webkit-animation: 2s ease 0.5s normal both 1 fadein;
-  // animation: 2s ease 0.5s normal both 1 fadein;
+  -webkit-animation: 2s ease 0.5s normal both 1 fadein;
+  animation: 2s ease 0.5s normal both 1 fadein;
   opacity: 0.8;
   align-self: center;
   min-width: 20%;
   height: 40%;
   background: #1F2341;
-  text-shadow: 0 0 1px white;
   color: white;
   position: relative;
   h3 {
+    color: white;
     padding: 1em;
     margin: 1em;
     font-size: 2em;
     opacity: 1;
   }
+
   input {
+    opacity: 1;
+    text-align: center;
     margin: 0 auto;
     display: block;
-  }
-  input {
     min-width: 20%;
-    height: 2em;
-    background: #A9B4C4;
+
     border: 1px solid #A9B4C4;
-    border-radius: 5px;
     font-size: 1.5em;
-    font-weight: bold;
-    color: #181D27;
+
     font-style: italic;
+    color: #1F2341;
+    padding: .5em;
+    font-size: 1.1em;
+    opacity: 1;
     &:hover {
+      transition-duration: 0.5s;
       transform: scale(1.2);
+    }
+    &::placeholder {
+      color: #1F2341;
+      font-size: 0.8em;
     }
   }
 
   button.login_next_button {
-    min-width: 20%;
-    line-height: 2em;
-    margin-top: 1em;
+    transition-duration: 0.3s;
+    border: 1px solid white;
     display: block;
-    margin: 1em auto;
-    background: #92B6B1;
-    border-style: none;
-    border-radius: 5px;
+    margin: 2em auto;
+    background: none;
+    color: white;
+    min-width: 20%;
+    font-size: 1em;
+    padding: 0.7em;
     &:hover {
-      transform: scale(1.2);
+      transition-duration: 0.4s;
+      letter-spacing: 5px;
+      box-shadow: 0 0 5px 1px white;
     }
   }
 
+
   button.login_skip_button {
+    transition-duration: 0.3s;
     position: absolute;
     font-size: 1em;
     bottom: 5%;
     right: 5%;
-    color: #D7D8DF;
+    color: white;
+    // color: #D7D8DF;
     background: none;
     border: none;
     &:hover {
+      transition-duration: 0.3s;
       transform: scale(1.2);
     }
   }
 }
 
 
+@keyframes slow {
+  0% { opacity:0; }
+  100% { opacity:0.93; }
+}
+
+@-webkit-keyframes slow {
+  0% { opacity:0; }
+  100% { opacity:0.93; }
+}
+
+
+
+
+
 .map_container {
+  animation: slow 0.5s 0.5s 1 linear both;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-
   background: #181D27;
-  opacity: 0.95;
+  opacity: 0.94;
   // display: inline-block;
   width: 90%;
   height: 90%;
   overflow: hidden;
+
   div.info_table {
-    // display: inline-block;
-    width: 39%;
+    animation: slow 1.5s 0.5s 1 linear both;
+    text-align: center;
+    width: 50%;
     color: white;
     margin: 0.7em;
+    padding: 1em;
+    justify-content: center;
+    h1 {
+      animation: slow 1.0s 0.5s 1 linear forwards;
+      font-size: 2.5em;
+    }
+    p {
+      animation: slow 1.0s 0.7s 1 linear forwards;
+      margin-top: 1em;
+      font-size: 1.2em;
+    }
+    button {
+      margin-top: 2em;
+      border: 1px solid white;
+      background: none;
+      color: white;
+      min-width: 30%;
+      font-size: 1em;
+      padding: 0.7em;
+      &:hover {
+        transition-duration: 0.4s;
+        letter-spacing: 5px;
+        box-shadow: 0 0 5px 1px white;
+      }
+    }
+
+    h1.city_mark_text {
+      font-size: 2em;
+    }
+
+    h1.city_name {
+      transform: scale(1.2);
+      margin: 2em;
+    }
   }
 
+
+
   div.main_map {
+    margin-right: 1em;
     width: 50%;
     position: relative;
     img {
@@ -155,60 +227,73 @@ div.login_pane {
 
 .time {
   width: 100%;
-  background: green;
+  height: 1.5em;
+  border-radius: 5px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#60677e+7,60677e+7,60677e+33,7abcff+100,60abf8+100 */
+  background: rgb(96,103,126); /* Old browsers */
+  background: -moz-linear-gradient(-45deg,  rgba(96,103,126,1) 7%, rgba(96,103,126,1) 7%, rgba(96,103,126,1) 33%, rgba(122,188,255,1) 100%, rgba(96,171,248,1) 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg,  rgba(96,103,126,1) 7%,rgba(96,103,126,1) 7%,rgba(96,103,126,1) 33%,rgba(122,188,255,1) 100%,rgba(96,171,248,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg,  rgba(96,103,126,1) 7%,rgba(96,103,126,1) 7%,rgba(96,103,126,1) 33%,rgba(122,188,255,1) 100%,rgba(96,171,248,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#60677e', endColorstr='#60abf8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
-@for $i from 0 through 15 {
+@for $i from 1 through 10 {
   .time#{$i} {
-    width:  6.66% * $i;
-    background: green;
+    width:  (10% * $i) - 10%;
+    height: 1.5em;
+    border-radius: 5px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#60677e+7,60677e+7,60677e+33,7abcff+100,60abf8+100 */
+    background: rgb(96,103,126); /* Old browsers */
+    background: -moz-linear-gradient(-45deg,  rgba(96,103,126,1) 7%, rgba(96,103,126,1) 7%, rgba(96,103,126,1) 33%, rgba(122,188,255,1) 100%, rgba(96,171,248,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg,  rgba(96,103,126,1) 7%,rgba(96,103,126,1) 7%,rgba(96,103,126,1) 33%,rgba(122,188,255,1) 100%,rgba(96,171,248,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg,  rgba(96,103,126,1) 7%,rgba(96,103,126,1) 7%,rgba(96,103,126,1) 33%,rgba(122,188,255,1) 100%,rgba(96,171,248,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#60677e', endColorstr='#60abf8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+
+
   }
 }
 
 .point {
   display: none;
-  // position: absolute;
-  // top: -1%;
-  // left: -1%;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: red;
   border-radius: 50%;
 }
 .pointCity {
   display: none;
-  // position: absolute;
-  // top: -1%;
-  // left: -1%;
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
   background: green;
   border-radius: 50%;
 }
 
 .result_tab {
+  width: 100%;
   display: block;
   position: absolute;
-  bottom: 5%;
-  right: 5%;
-  background: white;
-  opacity: 0.7;
+  bottom: 0%;
+  left: 0%;
+  background: #1F2341;
+  opacity: 0.93;
   h1, h3 {
-    color: grey;
-    font-size: 1em;
+    display: inline-block;
+    color: white;
+    font-size: 1.2em;
+    margin: 0 2em;
+  }
+  h3 {
   }
 }
-.score_table {
-  width: 30%;
-  display: flex;
-  align-self: flex-start;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: white;
-  opacity: 0.7;
-  h1, h3 {
-    color: grey;
-    font-size: 1em;
+
+
+.game_over {
+  font-size: 1.2em;
+  text-align: center;
+  color: white;
+  h2.game_over_user {
+    font-size: 2.0em;
   }
 }

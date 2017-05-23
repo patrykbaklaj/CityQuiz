@@ -5,7 +5,8 @@ const map_Url = "images/Poland_map.svg";
 const helloText = "Twoje zadanie polega na zaznaczaniu na mapie wyświetlanych miast. Im bliżej będziesz, tym więcej punktów dostaniesz. Pamiętej, że na zaznaczenie każdego miasta masz tylko 10 sekund.... Zaczynamy?";
 let userName = "";
 let userTotalScore = 0;
-const citiesArray = [{id: 1, city: "Bielsko-Biała", cityN: 49.819, cityE: 19.049},
+const citiesArray =
+[{id: 1, city: "Bielsko-Biała", cityN: 49.819, cityE: 19.049},
 {id: 2, city: "Bydgoszcz", cityN: 53.120, cityE: 18.010 },
 {id: 3, city: "Gdańsk", cityN: 54.360, cityE: 18.639 },
 {id: 4, city: "Gorzów Wielkopolski", cityN: 52.740, cityE: 15.230},
@@ -37,6 +38,7 @@ class Login extends React.Component {
   }
   onClickSkip(e) {
     e.preventDefault();
+    this.props.onLogin();
   }
   onClickNext(e) {
     e.preventDefault();
@@ -51,7 +53,7 @@ class Login extends React.Component {
   render(){
     return <div>
       <div className="login_header">
-        <h1>Witaj w grze Geograficzny Quiz !</h1>
+        <h1>Witaj w grze City Quiz !</h1>
       </div>
       <div className="login_pane">
         <h3>Podaj pseudonim, aby zapisać swój wynik w rankingu!</h3>
@@ -112,13 +114,16 @@ class InfoTable extends React.Component {
   }
 
   render(){
+    if(userName === ""){
+      userName = "Nieznajomy"
+    }
 
     if(this.state.end) {
       console.log("game over");
       return <div className="game_over">
-        <h2>{userName},</h2>
-        <h1>gra zakończona</h1>
-        <h3>Twój wynik to: {userTotalScore} punktów!</h3>
+        <h2 className="game_over_user">{userName},</h2>
+        <h2>gra zakończona</h2>
+        <h1>Twój wynik to: {userTotalScore} punktów!</h1>
       </div>
 
     }
@@ -136,7 +141,7 @@ class InfoTable extends React.Component {
     if(this.state.start) {
       return <div className="info_table">
         <div className="city_display">
-          <h1>Zaznacz podane miasto na mapie  </h1>
+          <h1 className="city_mark_text">Zaznacz podane miasto na mapie  </h1>
           <h1 className="city_name">{this.state.city.city}</h1>
         </div>
         <ScoreSummary countingEnd = {(e) => this.nextCity(e)}/>
@@ -171,6 +176,7 @@ class ScoreSummary extends React.Component {
           seconds: this.state.seconds - 1,
           className: "time" + this.state.seconds
         })
+
       } else {
         this.setState({
           seconds: 0
@@ -184,7 +190,9 @@ class ScoreSummary extends React.Component {
   render () {
     console.log("render ScoreSummary");
     return <div className="score_summary">
-      <div className={this.state.className}>{this.state.seconds}</div>
+      <p>Pozostało: </p>
+      <p>{this.state.seconds} s</p>
+      <div className={this.state.className}></div>
     </div>
   }
 }
